@@ -37,7 +37,7 @@ final native class Matrix
     var ty : number;
 }
 
-final __fake__ class _Math
+native __fake__ class _Math
 {
     function concatMatrix (mat1 : Matrix, mat2 : Matrix) : Matrix;
     function invertMatrix (mat : Matrix) : Matrix;
@@ -1173,6 +1173,19 @@ native __fake__ class Contour
     delete function constructor () {}
 }
 
+native __fake__ class HalfEdge
+{
+    __readonly__ var id : int;
+    var index : int;
+
+    function getNext() : HalfEdge;
+    function getOppositeHalfEdge() : HalfEdge;
+    function getPrev() : HalfEdge;
+    function getVertex() : Vertex;
+
+    delete function constructor () {}
+}
+
 native __fake__ class Edge
 {
     var cubicSegmentIndex : int;
@@ -1219,7 +1232,7 @@ native __fake__ class Shape extends Element
     delete function constructor () {}
 }
 
-native __fake__ class Oval extends Shape;
+native __fake__ class Oval extends Shape
 {
     __readonly__ var closePath : boolean;
     __readonly__ var endAngle : number;
@@ -1230,11 +1243,11 @@ native __fake__ class Oval extends Shape;
 }
 native __fake__ class Rectangle extends Shape
 {
-    __readonly__ var bottomLeftRadius : float;
-    __readonly__ var bottomRightRadius : float;
+    __readonly__ var bottomLeftRadius : number;
+    __readonly__ var bottomRightRadius : number;
     __readonly__ var lockFlag : boolean;
-    __readonly__ var topLeftRadius : float;
-    __readonly__ var topRightRadius : float;
+    __readonly__ var topLeftRadius : number;
+    __readonly__ var topRightRadius : number;
 
     delete function constructor () {}
 }
@@ -1300,10 +1313,18 @@ native __fake__ class Text extends Element
     var useDeviceFonts : boolean;
     var variableName : string;
 
-    function getTextAttr();
-    function getTextString();
-    function setTextAttr();
-    function setTextString();
+    function getTextAttr(attrName : string) : variant;
+    function getTextAttr(attrName : string, startIndex : int) : variant;
+    function getTextAttr(attrName : string, startIndex : int, endIndex : int) : variant;
+    function getTextString() : string;
+    function getTextString(startIndex : int) : string;
+    function getTextString(startIndex : int, endIndex : int) : string;
+    function setTextAttr(attrName : string, attrValue : variant) : void;
+    function setTextAttr(attrName : string, attrValue : variant, startIndex : int) : void;
+    function setTextAttr(attrName : string, attrValue : variant, startIndex : int, endIndex : int) : void;
+    function setTextString(text : string) : void;
+    function setTextString(text : string, startIndex : int) : void;
+    function setTextString(text : string, startIndex : int, endIndex : int) : void;
 
     delete function constructor () {}
 }
